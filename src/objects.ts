@@ -93,8 +93,7 @@ export function toMarkdown(question: Question): string {
  * `newName`.
  */
 export function renameQuestion(question: Question, newName: string): Question {
-    let newQ = { ...question };
-    newQ.name = newName;
+    let newQ = { ...question, name: newName};
     return newQ;
 }
 
@@ -105,10 +104,10 @@ export function renameQuestion(question: Question, newName: string): Question {
  */
 export function publishQuestion(question: Question): Question {
     let newQ = { ...question };
-    if (newQ.published.valueOf()) {
-        newQ.published = !newQ.published;
+    if (newQ.published) {
+        newQ.published = false;
     } else {
-        newQ.published;
+        newQ.published = true;
     }
     return newQ;
 }
@@ -153,14 +152,6 @@ export function mergeQuestion(
     contentQuestion: Question,
     { points }: { points: number },
 ): Question {
-    let merged = { ...contentQuestion };
-    if (merged.published.valueOf()) {
-        !merged.published;
-    } else {
-        merged.published = true;
-    }
-    merged.id = id;
-    merged.name = name;
-    merged.points = points;
+    let merged = { ...contentQuestion, id: id, name: name, points: points, published: false};
     return merged;
 }
