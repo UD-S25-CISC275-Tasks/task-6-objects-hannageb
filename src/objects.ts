@@ -81,7 +81,11 @@ export function toShortForm(question: Question): string {
  * Check the unit tests for more examples of what this looks like!
  */
 export function toMarkdown(question: Question): string {
-    return "";
+    if (!question.options.length) {
+        return `# ${question.name}\n${question.body}`;
+    } else {
+        return `# ${question.name}\n${question.body}\n- ${question.options.join("\n- ")}`;
+    }
 }
 
 /**
@@ -100,7 +104,13 @@ export function renameQuestion(question: Question, newName: string): Question {
  * published; if it was published, now it should be not published.
  */
 export function publishQuestion(question: Question): Question {
-    return question;
+    let newQ = { ...question };
+    if (newQ.published.valueOf()) {
+        newQ.published = !newQ.published;
+    } else {
+        newQ.published;
+    }
+    return newQ;
 }
 
 /**
@@ -110,7 +120,10 @@ export function publishQuestion(question: Question): Question {
  * The `published` field should be reset to false.
  */
 export function duplicateQuestion(id: number, oldQuestion: Question): Question {
-    return oldQuestion;
+    let duplicate = { ...oldQuestion };
+    duplicate.name = `Copy of ${oldQuestion.name}`;
+    duplicate.published = false;
+    return duplicate;
 }
 
 /**
@@ -138,5 +151,14 @@ export function mergeQuestion(
     contentQuestion: Question,
     { points }: { points: number },
 ): Question {
-    return contentQuestion;
+    let merged = { ...contentQuestion };
+    if (merged.published.valueOf()) {
+        !merged.published;
+    } else {
+        merged.published = true;
+    }
+    merged.id = id;
+    merged.name = name;
+    merged.points = points;
+    return merged;
 }
