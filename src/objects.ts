@@ -93,7 +93,7 @@ export function toMarkdown(question: Question): string {
  * `newName`.
  */
 export function renameQuestion(question: Question, newName: string): Question {
-    let newQ = { ...question, name: newName};
+    let newQ = { ...question, name: newName };
     return newQ;
 }
 
@@ -119,7 +119,12 @@ export function publishQuestion(question: Question): Question {
  * The `published` field should be reset to false.
  */
 export function duplicateQuestion(id: number, oldQuestion: Question): Question {
-    let duplicate = { ...oldQuestion, id: id, name: `Copy of ${oldQuestion.name}`, published: false };
+    let duplicate = {
+        ...oldQuestion,
+        id: id,
+        name: `Copy of ${oldQuestion.name}`,
+        published: false,
+    };
     return duplicate;
 }
 
@@ -152,6 +157,12 @@ export function mergeQuestion(
     contentQuestion: Question,
     { points }: { points: number },
 ): Question {
-    let merged = { ...contentQuestion, id: id, name: name, points: points, published: false};
+    let merged = {
+        ...contentQuestion,
+        id: id,
+        name: name,
+        points: points,
+        published: false,
+    };
     return merged;
 }
